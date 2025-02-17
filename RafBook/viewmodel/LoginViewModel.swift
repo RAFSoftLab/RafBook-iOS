@@ -1,10 +1,3 @@
-//
-//  LoginViewModel.swift
-//  RafBook
-//
-//  Created by Stevan Dabizljevic on 26.11.24..
-//
-
 import Foundation
 
 class LoginViewModel: ObservableObject {
@@ -12,21 +5,47 @@ class LoginViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var errorMessage: String? = nil
     @Published var isLoggingIn: Bool = false
+    @Published var loggedIn: Bool = false
     
-    func login() {
+    func login(appState: AppState) {
         guard validateInput() else { return }
-        
         sanitazeInput()
         
-        // FAKE LOGIN
         isLoggingIn = true
         errorMessage = nil
-        DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+        
+        // Prepare login request payload
+        let loginRequest = LoginRequest(username: email, password: password)
+        
+        APIClient.shared.request(
+            endpoint: "users/auth/login",
+            method: "POST",
+            body: loginRequest
+        ) { [weak self] result in
             DispatchQueue.main.async {
+                guard let self = self else { return }
                 self.isLoggingIn = false
-                if self.email == "stevan@raf.rs" && self.password == "sifra" {
-                    print("Login successful!")
-                } else {
+                
+                switch result {
+                case .success(let data):
+                    do {
+                        // Decode the login response
+                        let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
+                        
+                        // Save the token to Keychain
+                        KeychainManager.saveTokenToKeychain(token: loginResponse.token)
+                        print(loginResponse.token)
+                        print("Login successful!")
+                        self.loggedIn = true
+                        appState.isLoggedIn = true
+                        appState.currentScreen = .mainApp
+                    } catch {
+                        print("Failed to decode response: \(error.localizedDescription)")
+                        self.errorMessage = "An error occurred. Please try again."
+                    }
+                    
+                case .failure(let error):
+                    print("Login failed: \(error.localizedDescription)")
                     self.errorMessage = "Invalid email or password."
                 }
             }
@@ -36,11 +55,6 @@ class LoginViewModel: ObservableObject {
     private func validateInput() -> Bool {
         if email.isEmpty || password.isEmpty {
             errorMessage = "Please fill in all fields."
-            return false
-        }
-        
-        if !email.contains("@") {
-            errorMessage = "Invalid email format."
             return false
         }
         

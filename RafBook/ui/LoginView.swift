@@ -9,6 +9,7 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject private var viewModel = LoginViewModel() // ViewModel to manage state
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         VStack(spacing: 20) {
@@ -19,7 +20,7 @@ struct LoginView: View {
             
             Spacer()
             
-            TextField("Email", text: $viewModel.email)
+            TextField("Username", text: $viewModel.email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
@@ -36,7 +37,7 @@ struct LoginView: View {
             }
             
             Button(action: {
-                viewModel.login()
+                viewModel.login(appState: appState)
             }) {
                 Text("Login")
                     .frame(maxWidth: .infinity)
@@ -59,13 +60,10 @@ struct LoginView: View {
                 Button("Forgot Password?") {
                     // Do something
                 }
-                Spacer()
-                Button("Sign Up") {
-                    // Do something
-                }
             }
             .padding(.horizontal)
             .font(.footnote)
+            
         }
         .padding()
     }
@@ -76,3 +74,8 @@ struct LoginView_Previews: PreviewProvider {
         LoginView()
     }
 }
+
+#Preview{
+    LoginView()
+}
+

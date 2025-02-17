@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct RafBookApp: App {
+    @StateObject private var appState = AppState()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(appState)
         }
     }
 }

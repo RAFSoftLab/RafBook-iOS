@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showSplash = true
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         Group {
-            if showSplash {
+            switch appState.currentScreen {
+            case .splash:
                 SplashScreenView()
-            } else {
+            case .login:
                 LoginView()
+            case .mainApp:
+                MainView()
             }
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 withAnimation {
-                    showSplash = false
+                    appState.currentScreen = .login
                 }
             }
         }
@@ -29,5 +32,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(AppState())
 }
