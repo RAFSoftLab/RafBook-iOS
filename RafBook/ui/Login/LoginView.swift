@@ -8,7 +8,7 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @StateObject private var viewModel = LoginViewModel() // ViewModel to manage state
+    @State private var viewModel = LoginViewModel()
     @EnvironmentObject var appState: AppState
     
     var body: some View {

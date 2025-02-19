@@ -6,12 +6,5 @@
 //
 
 struct APIConfig {
-    static let baseURL = "http://localhost:8080/api/"
-}
-
-enum NetworkError: Error {
-    case invalidUrl
-    case invalidResponse
-    case invalidData
-    case decodingError
+    static let baseURL = "http://localhost:8080/api"
 }

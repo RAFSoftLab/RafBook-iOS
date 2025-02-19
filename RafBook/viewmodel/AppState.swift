@@ -13,4 +13,5 @@ class AppState: ObservableObject {
     
     @Published var currentScreen: CurrentScreen = .splash
     @Published var isLoggedIn: Bool = false
+    @Published var user: UserDTO?
 }

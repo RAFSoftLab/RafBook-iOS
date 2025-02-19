@@ -57,7 +57,7 @@ class Requests {
     // Build the URLRequest
     private func build() throws -> URLRequest {
         guard let url = url else {
-            throw NetworkError.invalidUrl
+            throw NetworkError.invalidURL
         }
 
         var request = URLRequest(url: url)
@@ -85,7 +85,7 @@ class Requests {
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             return try decoder.decode(T.self, from: data)
         } catch {
-            throw NetworkError.decodingError // (error)
+            throw NetworkError.decodingFailed("") // (error)
         }
     }
 

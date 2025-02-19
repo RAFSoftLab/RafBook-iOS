@@ -11,5 +11,5 @@ struct UserDTO: Codable {
     let lastName: String
     let username: String
     let email: String
-    let role: String
+    let roles: [String]
 }

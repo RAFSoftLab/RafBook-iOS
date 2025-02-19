@@ -6,6 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4E74B1A82D66887400F267A4 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 4E74B1A72D66887400F267A4 /* Swinject */; };
+		4E74B1AD2D66888000F267A4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4E74B1AC2D66888000F267A4 /* Alamofire */; };
+		4E74B1B12D6688CA00F267A4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4E74B1B02D6688CA00F267A4 /* Alamofire */; };
+		4E74B1B52D6688D400F267A4 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 4E74B1B42D6688D400F267A4 /* Swinject */; };
+		4E74B1B92D66890800F267A4 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 4E74B1B82D66890700F267A4 /* Swinject */; };
+		4E74B1BD2D66891300F267A4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4E74B1BC2D66891300F267A4 /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4ECF9C592CED054500179243 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -22,6 +31,19 @@
 			remoteInfo = RafBook;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4E74B1A52D66884700F267A4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4ECF9C482CED054400179243 /* RafBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RafBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +74,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E74B1AD2D66888000F267A4 /* Alamofire in Frameworks */,
+				4E74B1A82D66887400F267A4 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E74B1B12D6688CA00F267A4 /* Alamofire in Frameworks */,
+				4E74B1B52D6688D400F267A4 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +92,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E74B1BD2D66891300F267A4 /* Alamofire in Frameworks */,
+				4E74B1B92D66890800F267A4 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +130,7 @@
 				4ECF9C442CED054400179243 /* Sources */,
 				4ECF9C452CED054400179243 /* Frameworks */,
 				4ECF9C462CED054400179243 /* Resources */,
+				4E74B1A52D66884700F267A4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -112,6 +141,8 @@
 			);
 			name = RafBook;
 			packageProductDependencies = (
+				4E74B1A72D66887400F267A4 /* Swinject */,
+				4E74B1AC2D66888000F267A4 /* Alamofire */,
 			);
 			productName = RafBook;
 			productReference = 4ECF9C482CED054400179243 /* RafBook.app */;
@@ -135,6 +166,8 @@
 			);
 			name = RafBookTests;
 			packageProductDependencies = (
+				4E74B1B02D6688CA00F267A4 /* Alamofire */,
+				4E74B1B42D6688D400F267A4 /* Swinject */,
 			);
 			productName = RafBookTests;
 			productReference = 4ECF9C582CED054500179243 /* RafBookTests.xctest */;
@@ -158,6 +191,8 @@
 			);
 			name = RafBookUITests;
 			packageProductDependencies = (
+				4E74B1B82D66890700F267A4 /* Swinject */,
+				4E74B1BC2D66891300F267A4 /* Alamofire */,
 			);
 			productName = RafBookUITests;
 			productReference = 4ECF9C622CED054500179243 /* RafBookUITests.xctest */;
@@ -195,6 +230,10 @@
 			);
 			mainGroup = 4ECF9C3F2CED054400179243;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4E74B1A62D66887400F267A4 /* XCRemoteSwiftPackageReference "Swinject" */,
+				4E74B1AB2D66888000F267A4 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4ECF9C492CED054400179243 /* Products */;
 			projectDirPath = "";
@@ -558,6 +597,58 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4E74B1A62D66887400F267A4 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
+		4E74B1AB2D66888000F267A4 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4E74B1A72D66887400F267A4 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E74B1A62D66887400F267A4 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		4E74B1AC2D66888000F267A4 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E74B1AB2D66888000F267A4 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		4E74B1B02D6688CA00F267A4 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E74B1AB2D66888000F267A4 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		4E74B1B42D6688D400F267A4 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E74B1A62D66887400F267A4 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		4E74B1B82D66890700F267A4 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E74B1A62D66887400F267A4 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		4E74B1BC2D66891300F267A4 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E74B1AB2D66888000F267A4 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4ECF9C402CED054400179243 /* Project object */;
 }
