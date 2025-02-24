@@ -5,13 +5,15 @@
 //  Created by Stevan Dabizljevic on 14.1.25..
 //
 import SwiftUI
+import Foundation
 
+@Observable
 class AppState: ObservableObject {
     enum CurrentScreen {
         case splash, login, mainApp
     }
     
-    @Published var currentScreen: CurrentScreen = .splash
-    @Published var isLoggedIn: Bool = false
-    @Published var user: UserDTO?
+    var currentScreen: CurrentScreen = .splash
+    var isLoggedIn: Bool = false
+    var user: UserDTO?
 }

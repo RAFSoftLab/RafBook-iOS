@@ -10,28 +10,35 @@ import Foundation
 @Observable
 final class ChannelsViewModel{
     
-    @Published var channels: [TextChannelDTO] = []
-    @Published var currentChannel: TextChannelDTO?
+    var studies: [StudiesDTO] = []
+    var studyPrograms: [StudyProgramDTO] = []
+    var currentStudyProgram: StudyProgramDTO?
+    var currentCategories: [CategoryDTO] = []
     
-    @ObservationIgnored
-    let channelsRepository: TextChannelRepository
+    @ObservationIgnored var channelsForUserUseCase: ChannelsForUserUsecase
+    @ObservationIgnored let channelsRepository: TextChannelRepository
     
-    init(channelsRepository: TextChannelRepository = AppContainer.shared.container.resolve(TextChannelRepository.self)!) {
-        self.channelsRepository = channelsRepository
+    init() {
+        self.channelsForUserUseCase = AppContainer.shared.container.resolve(ChannelsForUserUsecase.self)!
+        self.channelsRepository = AppContainer.shared.container.resolve(TextChannelRepository.self)!
     }
     
-    func getAllAvailableChannels() async throws -> [TextChannelDTO]{
+    func getInitialState() async -> [StudiesDTO] {
         do {
-            let channels: [TextChannelDTO] = try await Requests()
-                .setEndpoint("text-channel")
-                .setMethod("GET")
-                .addAuth()
-                .execute()
-            self.channels = channels
-            print("Fetched channels: \(channels)")
+            let studies = try await self.channelsForUserUseCase.initialFetch()
+            self.studies = studies
+            self.studyPrograms = studies.first?.studyPrograms ?? []
+            setCurrentStudyProgram( self.studyPrograms.first ?? nil )
+            return studies
         } catch {
-            print("Error fetching channels: \(error)")
+            print("Error fetching initial state: \(error)")
+            // TODO: Handle error appropriately; for now, we return an empty array
+            return []
         }
-        return channels
+    }
+    
+    func setCurrentStudyProgram(_ studyProgram : StudyProgramDTO?){
+        currentStudyProgram = studyProgram
+        currentCategories = studyProgram?.categories ?? []
     }
 }

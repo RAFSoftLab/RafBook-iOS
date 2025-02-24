@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct MessageDTO: Codable {
+struct MessageDTO: Codable, Identifiable {
     let id: Int64
     let content: String
     let createdAt: String

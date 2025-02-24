@@ -1,33 +1,37 @@
-//
-//  ChannelsView.swift
-//  RafBook
-//
-//  Created by Stevan Dabizljevic on 8.12.24..
-//
-
 import SwiftUI
 
 struct ChannelsView: View {
-    
-    @StateObject var viewModel = ChannelsViewModel()
-    @State var channels: [TextChannelDTO] = []
+    @State var viewModel = ChannelsViewModel()
     
     var body: some View {
         NavigationView {
             List {
-//                ForEach(channels) { channel in
-//                    Text(channel.name)
-//                }
+                ForEach(viewModel.currentCategories) { category in
+                    CategorySectionView(category: category)
+                }
             }
-            .navigationTitle("Channels")
+            .listStyle(InsetGroupedListStyle())
+            .navigationTitle(viewModel.currentStudyProgram?.name ?? "Study program")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Menu {
+                        ForEach(viewModel.studyPrograms) { program in
+                            Button(action: {
+                                viewModel.currentStudyProgram = program
+                            }) {
+                                Text(program.name ?? "No name")
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "line.horizontal.3")
+                            .imageScale(.large)
+                    }
+                }
+            }
         }
-//        .task {
-//            do{
-//                channels = try await viewModel.getAllAvailableChannels()
-//            } catch {
-//                print("Failed to get channels \(error)")
-//            }
-//        }
+        .task {
+            _ = await viewModel.getInitialState()
+        }
     }
 }
 

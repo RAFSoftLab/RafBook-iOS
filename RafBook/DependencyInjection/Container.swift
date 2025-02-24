@@ -66,6 +66,9 @@ final class AppContainer {
         }.inObjectScope(.container)
         
         // UseCases
+        container.register(ChannelsForUserUsecase.self) { _ in
+            ChannelsForUserUsecaseImpl()
+        }.inObjectScope(.container)
         
         // ViewModels
     }

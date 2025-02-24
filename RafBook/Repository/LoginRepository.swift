@@ -8,6 +8,7 @@
 import Foundation
 
 protocol LoginRepository {
+    var loggedInUser: UserDTO? { get }
     func login(request: LoginRequestDTO) async throws -> LoginResponseDTO
 }
 
@@ -47,12 +48,13 @@ final class LoginRepositoryImpl: LoginRepository  {
     }
     
     func decodeJWT(_ token: String) -> UserDTO? {
-        // (header, payload, signature)
+        // Header, payload, and signature
         let segments = token.components(separatedBy: ".")
         guard segments.count == 3 else { return nil }
         
         var payloadSegment = segments[1]
         
+        // Add padding
         let requiredLength = 4 * ((payloadSegment.count + 3) / 4)
         let paddingLength = requiredLength - payloadSegment.count
         if paddingLength > 0 {
@@ -65,7 +67,16 @@ final class LoginRepositoryImpl: LoginRepository  {
         }
         
         do {
-            let user = try JSONDecoder().decode(UserDTO.self, from: payloadData)
+            var jsonObject = try JSONSerialization.jsonObject(with: payloadData, options: []) as? [String: Any] ?? [:]
+            
+            if let rolesValue = jsonObject["roles"], jsonObject["role"] == nil {
+                jsonObject["role"] = rolesValue
+                jsonObject.removeValue(forKey: "roles")
+            }
+            
+            let newPayloadData = try JSONSerialization.data(withJSONObject: jsonObject, options: [])
+            
+            let user = try JSONDecoder().decode(UserDTO.self, from: newPayloadData)
             return user
         } catch {
             print("Error decoding JWT payload: \(error)")

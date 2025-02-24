@@ -1,29 +1,25 @@
-//
-//  ProfileView.swift
-//  RafBook
-//
-//  Created by Stevan Dabizljevic on 8.12.24..
-//
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var viewModel = ProfileViewModel()
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                // Replace with actual user profile data
+                // Placeholder profile image
                 Image(systemName: "person.crop.circle.fill")
                     .resizable()
                     .frame(width: 100, height: 100)
                     .foregroundColor(.blue)
-
-                Text("John Doe")
+                
+                Text(viewModel.displayName)
                     .font(.title)
                     .fontWeight(.bold)
-
-                Text("Faculty Member")
+                
+                Text(viewModel.displayRole)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-
+                
                 Spacer()
             }
             .padding()

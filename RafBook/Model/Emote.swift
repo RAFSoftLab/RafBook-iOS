@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct Emote: Codable {
+struct Emote: Codable, Identifiable {
     let id: Int64
     let name: String
     let data: [Data]
