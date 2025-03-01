@@ -18,7 +18,7 @@ struct ContentView: View {
             case .login:
                 LoginView()
             case .mainApp:
-                MainView()
+                NavigationTabsView()
             }
         }
         .onAppear {

@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct MainView: View {
+struct NavigationTabsView: View {
     var body: some View {
         TabView {
             ChannelsView()
@@ -23,5 +23,5 @@ struct MainView: View {
 }
 
 #Preview{
-    MainView()
+    NavigationTabsView()
 }

@@ -17,7 +17,7 @@ struct ChannelsView: View {
                     Menu {
                         ForEach(viewModel.studyPrograms) { program in
                             Button(action: {
-                                viewModel.currentStudyProgram = program
+                                viewModel.setCurrentStudyProgram(program)
                             }) {
                                 Text(program.name ?? "No name")
                             }

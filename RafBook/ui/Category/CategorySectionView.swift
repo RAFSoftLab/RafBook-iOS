@@ -12,7 +12,7 @@ struct CategorySectionView: View {
     var body: some View {
         Section(header: Text(category.name)) {
             ForEach(category.textChannels) { channel in
-                NavigationLink(destination: Text("Channel View for \(channel.name)")) {
+                NavigationLink(destination: TextChannelView(channel: channel)) {
                     Text(channel.name)
                         .padding(.leading, 20)
                 }
@@ -20,3 +20,4 @@ struct CategorySectionView: View {
         }
     }
 }
+
