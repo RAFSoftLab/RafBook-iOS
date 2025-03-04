@@ -8,6 +8,7 @@
 protocol MessageRepository{
     var messages: [MessageDTO] { get set }
     var messagesById: [Int64: MessageDTO] { get set }
+    func sendTextMessage(_ message: NewMessageDTO) async throws -> MessageDTO
 }
 
 class MessageRepositoryImpl: MessageRepository{
@@ -18,6 +19,13 @@ class MessageRepositoryImpl: MessageRepository{
     
     init() {
         self.networkService = AppContainer.shared.container.resolve(NetworkService.self)!
+    }
+    
+    func sendTextMessage(_ message: NewMessageDTO) async throws -> MessageDTO{
+        let respondMessage: MessageDTO = try await networkService.post(urlPath: "messages", body: message)
+        messages.append(respondMessage)
+        messagesById[respondMessage.id] = respondMessage
+        return respondMessage
     }
     
     

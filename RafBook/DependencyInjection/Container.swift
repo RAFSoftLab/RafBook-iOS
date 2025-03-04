@@ -74,6 +74,9 @@ final class AppContainer {
             IsMyMessageUseCaseImpl()
         }.inObjectScope(.container)
         
+        container.register(SendNewMessageUseCase.self) { _ in
+            SendNewMessageUseCaseImpl()
+        }.inObjectScope(.container)
         
         // ViewModels
     }

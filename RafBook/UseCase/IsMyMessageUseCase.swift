@@ -17,7 +17,7 @@ final class IsMyMessageUseCaseImpl: IsMyMessageUseCase {
     }
     
     func isMyMessage(message: MessageDTO) -> Bool {
-        loginRepository.loggedInUser == message.sender
+        loginRepository.loggedInUser?.id == message.sender.id
     }
     
 }

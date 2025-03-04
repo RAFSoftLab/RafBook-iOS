@@ -13,6 +13,7 @@ struct TextChannelView: View {
 
     @State private var tabBarHidden = true
     @State private var viewModel: TextChannelViewModel
+    @State private var messageText: String = ""
     
     init(channel: TextChannelDTO){
         self.channel = channel
@@ -33,11 +34,12 @@ struct TextChannelView: View {
                 
                 // Optional: an input field with a "Send" button at the bottom
                 HStack {
-                    TextField("Type a message...", text: .constant(""))
+                    TextField("Type a message...", text: $messageText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .frame(minHeight: 44)
+                        .autocorrectionDisabled()
                     Button("Send") {
-                        // Handle sending
+                        viewModel.sendMessage(messageText)
                     }
                 }
                 .padding()

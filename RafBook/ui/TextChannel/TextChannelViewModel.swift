@@ -12,10 +12,12 @@ import SwiftUI
 final class TextChannelViewModel {
     let channel: TextChannelDTO
     var messages: [MessageDTO]
+    let sendNewMessageUseCase: SendNewMessageUseCase
     
     init(channel: TextChannelDTO) {
         self.channel = channel
-        self.messages = channel.messageDTOList // Use initial messages or load them later
+        self.messages = channel.messageDTOList.sorted { $0.createdAt < $1.createdAt }
+        self.sendNewMessageUseCase = AppContainer.shared.container.resolve(SendNewMessageUseCase.self)!
     }
     
     // Add functions to load new messages, send messages, etc.
@@ -23,7 +25,14 @@ final class TextChannelViewModel {
         // e.g. fetch older messages and prepend them to messages.
     }
     
-    func sendMessage(_ text: String) async {
-        // Call repository to send a message, then update messages array.
+    func sendMessage(_ text: String){
+        Task{
+            do{
+                let sentMessage = try await sendNewMessageUseCase.sendTextMessage(to: channel, content: text)
+                messages.append(sentMessage)
+            } catch {
+                print(error)
+            }
+        }
     }
 }
