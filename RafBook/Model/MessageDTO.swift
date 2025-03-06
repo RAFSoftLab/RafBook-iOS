@@ -14,7 +14,7 @@ struct MessageDTO: Codable, Identifiable {
     let mediaUrl: [String]?
     let sender: UserDTO
     let reactions: [ReactionDTO]?
-//    let parentMessage: Message? See what to do about this one
+//    let parentMessage: MessageDTO?
     let deleted: Bool
     let edited: Bool
 }

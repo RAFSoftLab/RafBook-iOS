@@ -1,9 +1,17 @@
 import SwiftUI
 
+var someUser = UserDTO(
+    id: 100, firstName: "Neko", lastName: "Nekic", username: "NekoKo", email: "neko@ko.com", role: []
+)
+var parentMessafe: MessageDTO? = MessageDTO(
+    id: 1111111, content: "Parent poruka", createdAt: "Sada", type: .text, mediaUrl: nil, sender: someUser, reactions: nil, deleted: false, edited: false
+)
+
 struct ChatMessageView: View {
     private let isMyMessage: Bool
     private let message: MessageDTO
     private let isMyMessageUseCase: IsMyMessageUseCase
+    
     
     init(message: MessageDTO) {
         self.message = message
@@ -11,50 +19,27 @@ struct ChatMessageView: View {
         self.isMyMessage = self.isMyMessageUseCase.isMyMessage(message: self.message)
     }
     
+    
     var body: some View {
-        if isMyMessage {
-            HStack {
-                Spacer(minLength: 40)
-                VStack(alignment: .trailing, spacing: 4) {
-                    Text(message.content)
-                        .font(.body)
-                        .foregroundColor(.white)
-                        .padding(10)
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                    Text(message.createdAt)
-                        .font(.caption2)
-                        .foregroundColor(.gray)
+        ReplyPreviewMessage(parentMessage: nil, isMyMessage: isMyMessage)
+        MessageBubble(message: message, isMyMessage: isMyMessage)
+        .contextMenu {
+            if isMyMessage {
+                Button("Edit") {
+                    // Add edit action here.
+                }
+                Button("Delete", role: .destructive) {
+                    // Add delete action here.
+                }
+            } else {
+                Button("Reply") {
+                    // Add reply action here.
+                }
+                Button("Report", role: .destructive) {
+                    // Add report action here.
                 }
             }
-            .padding(.vertical, 6)
-            .padding(.horizontal)
-        } else {
-            HStack(alignment: .top, spacing: 8) {
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .foregroundColor(.blue)
-                    .padding(.top, 2)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(message.sender.username)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                    Text(message.content)
-                        .font(.body)
-                        .foregroundColor(.primary)
-                        .padding(10)
-                        .background(Color(.systemGray5))
-                        .cornerRadius(8)
-                    Text(message.createdAt)
-                        .font(.caption2)
-                        .foregroundColor(.gray)
-                }
-                Spacer()
-            }
-            .padding(.vertical, 6)
-            .padding(.horizontal)
         }
+        
     }
 }

@@ -8,6 +8,8 @@ import Foundation
 
 import Alamofire
 
+struct EmptyResponse: Decodable {}
+
 protocol NetworkService {
     func get<U: Decodable>(urlPath: String, parameters: Parameters?) async throws -> U
     func post<T: Encodable, U: Decodable>(urlPath: String, body: T) async throws -> U

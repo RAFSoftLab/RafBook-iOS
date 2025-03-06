@@ -22,7 +22,7 @@ final class SendNewMessageUseCaseImpl: SendNewMessageUseCase {
         let newMessage = NewMessageDTO(
             content: content, type: .text, mediaUrl: nil, parentMessage: nil, textChannel: to.id
         )
-        return try await messageRepository.sendTextMessage(newMessage)
+        return try await messageRepository.sendMessage(newMessage)
     }
     
 
